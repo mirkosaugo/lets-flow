@@ -6,13 +6,27 @@ Welcome to the ReactFlow Test project! 🚀
 
 This project is all about flowing with React! 🌊💻 We're using ReactFlow, a super cool library that allows you to create beautiful and interactive flowcharts in your React applications.
 
-## Features
+## Features to test
 
-- Flow like a pro: With ReactFlow, you can create stunning flowcharts with ease. Connect nodes, add custom styles, and watch your ideas flow seamlessly.
+- Stage - zoom
+- Stage - Controls
+- Stage - context menu
+- Stage - recenter
+- Stage - Move inside the canvas with animation
+- Stage - grid snap
 
-- Drag and drop: Say goodbye to boring static diagrams! ReactFlow lets you drag and drop nodes, making it feel like you're playing with virtual Legos. 🧱
+- Node - drag & drop inside another node
+- Node - resize
+- Node - Interactivity
+- Node - context menu
 
-- Interactive and responsive: Your flowcharts will come to life! ReactFlow provides a smooth and interactive experience, adapting to different screen sizes and devices.
+- Multiselect - drag
+- Multiselect - resize
+- Multiselect - context menu
+
+## Node version
+
+v18.12.1
 
 ## Getting Started
 
@@ -20,24 +34,12 @@ To get started with ReactFlow Test, follow these simple steps:
 
 1. Clone this repository to your local machine.
 2. Install the necessary dependencies by running `npm install`.
-3. Start the development server with `npm start`.
-4. Open your browser and navigate to `http://localhost:3000`.
+3. Start the development server with `npm run dev`.
+4. Open your browser and navigate to `hhttp://localhost:5173/`.
 5. Start flowing with ReactFlow! 🌊💻
-
-## Contributing
-
-We welcome contributions from everyone! If you have any ideas, bug fixes, or improvements, feel free to open an issue or submit a pull request. Let's flow together! 🤝
-
-## License
-
-This project is licensed under the MIT License. Feel free to use it, modify it, and have fun with it! Just remember to give credit where credit is due. 😉
-
-## Acknowledgements
-
-We would like to express our gratitude to the creators of ReactFlow for providing such an awesome library. You rock! 🎉
 
 ## Contact
 
-If you have any questions, suggestions, or just want to say hi, you can reach us at reactflowtest@example.com.
+If you have any questions, suggestions, or just want to say hi, you can reach me at hi@mynameismirko.it
 
 Happy flowing! 🌊💻
