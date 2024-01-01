@@ -7,44 +7,50 @@ import ReactFlow, {
   useEdgesState,
   addEdge,
   SelectionMode,
+  useReactFlow,
+  Panel,
+  ReactFlowProvider,
 } from "reactflow";
 
 import type { Connection, BackgroundVariant } from "reactflow";
 
+import FitButton from "./FitButton";
+
 import "reactflow/dist/style.css";
 
 const initialNodes = [
-  { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-  { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
+  { id: "1", type: "mycard", position: { x: 0, y: 0 }, data: { label: "1" } },
+  { id: "2", type: "mycard", position: { x: 0, y: 100 }, data: { label: "2" } },
 ];
-const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
+// const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
-export default function App() {
+const Canvas: React.FC = () => {
   const [enableFigmaLikeNavigation, setEnableFigmaLikeNavigation] =
     useState(false);
   const [mapVisible, setMapVisible] = useState(false);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  // const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
-  );
+  // const onConnect = useCallback(
+  //   (params: Connection) => setEdges((eds) => addEdge(params, eds)),
+  //   [setEdges]
+  // );
 
   const bgType = "dots" as BackgroundVariant;
+  const { zoomIn, zoomOut } = useReactFlow();
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <ReactFlow
         nodes={nodes}
-        edges={edges}
+        // edges={edges}
         onNodesChange={(e) => {
           console.log(e);
           onNodesChange(e);
         }}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
+        // onEdgesChange={onEdgesChange}
+        // onConnect={onConnect}
         {...(enableFigmaLikeNavigation
           ? {
               panOnScroll: true,
@@ -53,10 +59,22 @@ export default function App() {
               selectionMode: SelectionMode.Partial,
             }
           : {})}
+        snapToGrid
+        snapGrid={[16, 16]}
       >
-        <Controls />
+        <Panel position="bottom-left">
+          {
+            // The <Panel /> component helps you position content above the viewport.
+          }
+          <button onClick={() => zoomIn({ duration: 250 })}>zoom in</button>
+          <button onClick={() => zoomOut({ duration: 250 })}>zoom out</button>
+          <FitButton />
+        </Panel>
+
         {mapVisible && <MiniMap nodeColor={(n) => "#ffcc00"} />}
+
         <Background variant={bgType} gap={32} size={1} />
+
         <div
           style={{
             top: 12,
@@ -79,4 +97,10 @@ export default function App() {
       </ReactFlow>
     </div>
   );
-}
+};
+
+export default () => (
+  <ReactFlowProvider>
+    <Canvas />
+  </ReactFlowProvider>
+);
