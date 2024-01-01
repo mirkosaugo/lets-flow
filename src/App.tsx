@@ -1,4 +1,5 @@
 import { useCallback, useState, useMemo } from "react";
+import { ZoomIn, ZoomOut } from "lucide-react";
 import ReactFlow, {
   MiniMap,
   Background,
@@ -68,26 +69,45 @@ const Canvas: React.FC = () => {
         snapToGrid
         snapGrid={[16, 16]}
       >
-        <Panel position="bottom-left" className="flex gap-2">
+        <Panel position="bottom-right" className="flex gap-2">
           {
             // The <Panel /> component helps you position content above the viewport.
           }
-          <Button onClick={() => zoomIn({ duration: 250 })}>zoom in</Button>
-          <Button onClick={() => zoomOut({ duration: 250 })}>zoom out</Button>
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={() => zoomIn({ duration: 250 })}
+          >
+            <ZoomIn className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={() => zoomOut({ duration: 250 })}
+          >
+            <ZoomOut className="h-4 w-4" />
+          </Button>
           <FitButton />
+          <Button variant="secondary" onClick={() => setMapVisible((v) => !v)}>
+            {mapVisible ? "Hide" : "Show"} map
+          </Button>
         </Panel>
 
-        {mapVisible && <MiniMap nodeColor={(n) => "#ffcc00"} />}
+        {mapVisible && (
+          <MiniMap
+            style={{
+              bottom: 46,
+            }}
+            nodeColor={(n) => "#ffcc00"}
+          />
+        )}
 
         <Background variant={"dots" as BackgroundVariant} gap={32} size={1} />
 
-        <Panel position="top-right" className="flex flex-col gap-2">
+        <Panel position="top-right">
           <Button onClick={() => setEnableFigmaLikeNavigation((v) => !v)}>
             {enableFigmaLikeNavigation ? "Disable" : "Enable"} Figma-like
             navigation
-          </Button>
-          <Button onClick={() => setMapVisible((v) => !v)}>
-            {mapVisible ? "Hide" : "Show"} map
           </Button>
         </Panel>
       </ReactFlow>
