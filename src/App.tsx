@@ -25,6 +25,8 @@ const initialNodes = [
 // const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
 const Canvas: React.FC = () => {
+  const { zoomIn, zoomOut } = useReactFlow();
+
   const [enableFigmaLikeNavigation, setEnableFigmaLikeNavigation] =
     useState(false);
   const [mapVisible, setMapVisible] = useState(false);
@@ -36,10 +38,6 @@ const Canvas: React.FC = () => {
   //   (params: Connection) => setEdges((eds) => addEdge(params, eds)),
   //   [setEdges]
   // );
-
-  const bgType = "dots" as BackgroundVariant;
-  const { zoomIn, zoomOut } = useReactFlow();
-
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <ReactFlow
@@ -73,7 +71,7 @@ const Canvas: React.FC = () => {
 
         {mapVisible && <MiniMap nodeColor={(n) => "#ffcc00"} />}
 
-        <Background variant={bgType} gap={32} size={1} />
+        <Background variant={"dots" as BackgroundVariant} gap={32} size={1} />
 
         <div
           style={{
