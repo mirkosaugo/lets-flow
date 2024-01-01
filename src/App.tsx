@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useMemo } from "react";
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -12,14 +12,19 @@ import ReactFlow, {
   ReactFlowProvider,
 } from "reactflow";
 
-import type { Connection, BackgroundVariant } from "reactflow";
+import type { Node, BackgroundVariant } from "reactflow";
 
 import FitButton from "./FitButton";
-
+import Card from "./Card";
 import "reactflow/dist/style.css";
 
-const initialNodes = [
-  { id: "1", type: "mycard", position: { x: 0, y: 0 }, data: { label: "1" } },
+const initialNodes: Node[] = [
+  {
+    id: "1",
+    type: "mycard",
+    position: { x: 0, y: 0 },
+    data: { label: "1", description: "hola" },
+  },
   { id: "2", type: "mycard", position: { x: 0, y: 100 }, data: { label: "2" } },
 ];
 // const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
@@ -32,20 +37,25 @@ const Canvas: React.FC = () => {
   const [mapVisible, setMapVisible] = useState(false);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  // const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  // const onConnect = useCallback(
-  //   (params: Connection) => setEdges((eds) => addEdge(params, eds)),
-  //   [setEdges]
-  // );
+  const nodeTypes = useMemo(() => ({ mycard: Card }), []);
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <ReactFlow
         nodes={nodes}
+        nodeTypes={nodeTypes}
         // edges={edges}
         onNodesChange={(e) => {
-          console.log(e);
+          // console.log(e);
           onNodesChange(e);
+        }}
+        onNodeDragStop={(_, node) => {
+          console.log("SAVE_POSITION:", {
+            type: node.type,
+            id: node.id,
+            position: node.position,
+          });
         }}
         // onEdgesChange={onEdgesChange}
         // onConnect={onConnect}
