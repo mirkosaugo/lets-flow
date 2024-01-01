@@ -1,21 +1,19 @@
 import { useCallback, useState, useMemo } from "react";
 import ReactFlow, {
   MiniMap,
-  Controls,
   Background,
   useNodesState,
-  useEdgesState,
-  addEdge,
   SelectionMode,
   useReactFlow,
   Panel,
   ReactFlowProvider,
 } from "reactflow";
+import { Button } from "@/components/ui/button";
 
 import type { Node, BackgroundVariant } from "reactflow";
 
-import FitButton from "./FitButton";
-import Card from "./Card";
+import FitButton from "./components/FitButton";
+import Card from "./components/Card";
 import "reactflow/dist/style.css";
 
 const initialNodes: Node[] = [
@@ -70,12 +68,12 @@ const Canvas: React.FC = () => {
         snapToGrid
         snapGrid={[16, 16]}
       >
-        <Panel position="bottom-left">
+        <Panel position="bottom-left" className="flex gap-2">
           {
             // The <Panel /> component helps you position content above the viewport.
           }
-          <button onClick={() => zoomIn({ duration: 250 })}>zoom in</button>
-          <button onClick={() => zoomOut({ duration: 250 })}>zoom out</button>
+          <Button onClick={() => zoomIn({ duration: 250 })}>zoom in</Button>
+          <Button onClick={() => zoomOut({ duration: 250 })}>zoom out</Button>
           <FitButton />
         </Panel>
 
@@ -83,25 +81,15 @@ const Canvas: React.FC = () => {
 
         <Background variant={"dots" as BackgroundVariant} gap={32} size={1} />
 
-        <div
-          style={{
-            top: 12,
-            right: 12,
-            position: "absolute",
-            zIndex: 100,
-            display: "flex",
-            flexDirection: "column",
-            gap: 8,
-          }}
-        >
-          <button onClick={() => setEnableFigmaLikeNavigation((v) => !v)}>
+        <Panel position="top-right" className="flex flex-col gap-2">
+          <Button onClick={() => setEnableFigmaLikeNavigation((v) => !v)}>
             {enableFigmaLikeNavigation ? "Disable" : "Enable"} Figma-like
             navigation
-          </button>
-          <button onClick={() => setMapVisible((v) => !v)}>
+          </Button>
+          <Button onClick={() => setMapVisible((v) => !v)}>
             {mapVisible ? "Hide" : "Show"} map
-          </button>
-        </div>
+          </Button>
+        </Panel>
       </ReactFlow>
     </div>
   );

@@ -1,12 +1,13 @@
 import React from "react";
 
 import { useReactFlow } from "reactflow";
+import { Button } from "@/components/ui/button";
 
 const FitButton: React.FC = () => {
   const reactFlow = useReactFlow();
 
   return (
-    <button
+    <Button
       onClick={() => {
         reactFlow.fitView({
           // this is not necessary, but it's only an example on how to use the fit
@@ -16,7 +17,7 @@ const FitButton: React.FC = () => {
       }}
     >
       Fit in page
-    </button>
+    </Button>
   );
 };
 
