@@ -11,6 +11,7 @@ const FitButton: React.FC = () => {
       variant="secondary"
       size="icon"
       onClick={() => {
+        console.log(reactFlow.getNodes().map((node) => ({ id: node.id })));
         reactFlow.fitView({
           // this is not necessary, but it's only an example on how to use the fit
           nodes: reactFlow.getNodes().map((node) => ({ id: node.id })),

@@ -11,22 +11,13 @@ import ReactFlow, {
 } from "reactflow";
 import { Button } from "@/components/ui/button";
 
-import type { Node, BackgroundVariant } from "reactflow";
+import type { BackgroundVariant } from "reactflow";
 
 import FitButton from "./components/FitButton";
 import Card from "./components/Card";
 import "reactflow/dist/style.css";
 
-const initialNodes: Node[] = [
-  {
-    id: "1",
-    type: "mycard",
-    position: { x: 0, y: 0 },
-    data: { label: "1", description: "hola" },
-  },
-  { id: "2", type: "mycard", position: { x: 0, y: 100 }, data: { label: "2" } },
-];
-// const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
+import { initialNodes } from "./data/nodes";
 
 const Canvas: React.FC = () => {
   const { zoomIn, zoomOut } = useReactFlow();
@@ -78,14 +69,14 @@ const Canvas: React.FC = () => {
             size="icon"
             onClick={() => zoomIn({ duration: 250 })}
           >
-            <ZoomIn className="h-4 w-4" />
+            <ZoomIn className="w-4 h-4" />
           </Button>
           <Button
             variant="secondary"
             size="icon"
             onClick={() => zoomOut({ duration: 250 })}
           >
-            <ZoomOut className="h-4 w-4" />
+            <ZoomOut className="w-4 h-4" />
           </Button>
           <FitButton />
           <Button variant="secondary" onClick={() => setMapVisible((v) => !v)}>

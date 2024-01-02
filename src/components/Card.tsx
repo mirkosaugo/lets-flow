@@ -1,31 +1,43 @@
 import React from "react";
-import { useReactFlow, NodeResizer } from "reactflow";
+import { useReactFlow, NodeResizer, useStoreApi } from "reactflow";
 import type { NodeProps } from "reactflow";
 
-const Card: React.FC<{
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+const MyCard: React.FC<{
   id: NodeProps["id"];
   data: NodeProps["data"];
   selected: NodeProps["selected"];
 }> = ({ data, selected, id }) => {
   const ref = React.useRef<HTMLDivElement>(null);
 
-  const flow = useReactFlow();
+  console.log("offsetHeight", ref.current?.offsetHeight);
 
   return (
-    <div
+    <Card
+      className="overflow-hidden border-gray-500 "
       style={{
-        border: "1px solid #222",
-        borderRadius: 5,
-        background: "#fff",
-        boxShadow: "0 0 5px rgba(0,0,0,0.3)",
+        width: "100%",
         height: "100%",
       }}
     >
       <NodeResizer
         color="#ff0071"
         isVisible={selected}
-        minWidth={ref.current?.offsetWidth || 0}
-        minHeight={ref.current?.offsetHeight || 0}
+        minWidth={480}
+        minHeight={200}
+        onResize={(e, item) => {
+          console.log("RESIZE:", item.width);
+          ref.current?.style.setProperty("width", `${item.width}px`);
+          ref.current?.style.setProperty("height", `${item.height}px`);
+        }}
         onResizeEnd={(width, height) => {
           console.log("SAVE_SIZE:", { width, height });
         }}
@@ -33,15 +45,19 @@ const Card: React.FC<{
       <div
         ref={ref}
         style={{
-          padding: 10,
-          width: "max-content",
+          width: 550,
+          height: 300,
         }}
       >
-        <h2>{data.label}</h2>
-        <p>{data.description}</p>
+        <CardHeader>
+          <CardTitle>{data.title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <CardDescription>{data.description}</CardDescription>
+        </CardContent>
       </div>
-    </div>
+    </Card>
   );
 };
 
-export default Card;
+export default MyCard;
